@@ -1,8 +1,91 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { useForm } from 'react-hook-form'
+import { recipescontext } from '../context/Recipescontext';
+import { nanoid } from 'nanoid';
 
 const Create = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+    reset,
+  } = useForm()
+
+  const {data,setdata}= useContext(recipescontext);
+
+  const sumbitHandler = (datainfo) =>{
+    data.id = nanoid();
+    const copydata =[...data] 
+    copydata.push(datainfo);
+    setdata(copydata);
+    reset();
+  }
+
   return (
-    <div>Create</div>
+    <div className="min-h-screen pt-24 flex items-center justify-center 
+    bg-gradient-to-br from-black via-zinc-950 to-zinc-900 px-4">
+      
+      <form 
+        onSubmit={handleSubmit(sumbitHandler)} 
+        className="w-[400px] bg-zinc-900/80 backdrop-blur-xl border border-zinc-800 
+        shadow-2xl rounded-2xl p-6 flex flex-col gap-4"
+      >
+
+        <h1 className="text-2xl font-semibold text-white mb-2 text-center">
+          Create Recipe
+        </h1>
+
+        <input 
+          {...register("image")} 
+          type="url" 
+          placeholder="Image URL"
+          className="bg-zinc-800 text-white placeholder-zinc-400 border border-zinc-700 
+          p-2 rounded-lg outline-none focus:ring-2 focus:ring-orange-500"
+        />
+
+        <input 
+          {...register("title")} 
+          type="text" 
+          placeholder="Enter the title"
+          className="bg-zinc-800 text-white placeholder-zinc-400 border border-zinc-700 
+          p-2 rounded-lg outline-none focus:ring-2 focus:ring-orange-500"
+        />
+
+        <textarea 
+          {...register("descrption")} 
+          placeholder="Description"
+          className="bg-zinc-800 text-white placeholder-zinc-400 border border-zinc-700 
+          p-2 rounded-lg outline-none focus:ring-2 focus:ring-orange-500"
+        ></textarea>
+
+        <textarea 
+          {...register("instruction")} 
+          placeholder="Write instruction separated by comma"
+          className="bg-zinc-800 text-white placeholder-zinc-400 border border-zinc-700 
+          p-2 rounded-lg outline-none focus:ring-2 focus:ring-orange-500"
+        ></textarea>
+
+        <select 
+          {...register("category")}
+          className="bg-zinc-800 text-white border border-zinc-700 
+          p-2 rounded-lg outline-none focus:ring-2 focus:ring-orange-500"
+        >
+          <option value="cat-1">Category-1</option>
+          <option value="cat-2">Category-2</option>
+          <option value="cat-3">Category-3</option>
+        </select>
+
+        <button 
+          className="mt-2 py-2 rounded-lg font-medium text-white 
+          bg-gradient-to-r from-orange-500 to-red-500 
+          hover:opacity-90 active:scale-[0.98] transition-all duration-200"
+        >
+          Create
+        </button>
+
+      </form>
+    </div>
   )
 }
 
