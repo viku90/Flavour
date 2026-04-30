@@ -2,12 +2,15 @@ import React, { useContext, useEffect } from 'react'
 import { recipescontext } from '../context/Recipescontext'
 import Recipescard from '../components/Recipescard';
 
-const Recipes = () => {
-  const { data,setdata } = useContext(recipescontext);
+const Fav = () => {
+  const data = JSON.parse(localStorage.getItem("Fav")) || [];
+  const singledata = JSON.parse(localStorage.getItem("recipe")) || [];
 
-  const recipesshow = data.map((recipes) => {
+
+
+  const recipesshow = data.map((fav) => {
     return (
-     <Recipescard key={recipes.id} recipes={recipes} />
+     <Recipescard key={fav.id} recipes={fav} />
     )
   })
 
@@ -16,10 +19,10 @@ const Recipes = () => {
     bg-gradient-to-br from-black via-zinc-950 to-zinc-900 
     flex flex-wrap gap-6 p-8 justify-center">
       
-      {recipesshow}
+      {data.length > 0 ? recipesshow : "Not Found !!!"}
 
     </div>
   )
 }
 
-export default Recipes
+export default Fav

@@ -40,6 +40,12 @@ const Navbar = () => {
           }>
             Create
           </NavLink>
+
+          <NavLink to="/fav" className={({isActive}) =>
+            `text-lg ${isActive ? "text-white border-b-2 border-orange-500 pb-1" : "text-zinc-400 hover:text-white"}`
+          }>
+            Favourite
+          </NavLink>
         </div>
 
         {/* Hamburger */}
@@ -69,6 +75,10 @@ const Navbar = () => {
 
           <NavLink onClick={()=>setOpen(false)} to="/create" className="text-zinc-300 hover:text-white">
             Create
+          </NavLink>
+
+          <NavLink onClick={()=>setOpen(false)} to="/fav" className="text-zinc-300 hover:text-white">
+            Favourtie
           </NavLink>
 
         </div>

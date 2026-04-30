@@ -16,11 +16,13 @@ const Create = () => {
 
   const {data,setdata}= useContext(recipescontext);
   const navigate =useNavigate();
+
   const sumbitHandler = (datainfo) =>{
     datainfo.id = nanoid();
     const copydata =[...data] 
     copydata.push(datainfo);
     setdata(copydata);
+    localStorage.setItem("recipe",JSON.stringify(copydata));
     toast.success("New Recipe is Created succesfully!")
     reset();
     navigate("/recipes");
